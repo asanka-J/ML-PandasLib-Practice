@@ -23,3 +23,36 @@ dataFrame = pd.read_csv('GlobalTemperatures.csv')
 dataFrame = dataFrame.ix[:,0:2]
 dataFrame.head()
 
+
+#plot
+plt.figure(figsize = (15, 5))
+plt.scatter(x = dataFrame['LandAverageTemperature'].index, y = dataFrame['LandAverageTemperature'])
+plt.title("Average Land Temperature 1750-2015")
+plt.xlabel("Year")
+plt.ylabel("Average Land Temperature")
+plt.show()
+
+
+# check date column value types
+print(type(dataFrame['dt'][0]))
+
+# Convert to date time value format in Pandas
+times = pd.DatetimeIndex(dataFrame['dt'])
+
+# Group by year
+grouped = dataFrame.groupby([times.year]).mean()
+
+
+# Plot
+plt.figure(figsize = (15, 5))
+plt.plot(grouped['LandAverageTemperature'])
+
+# Name axis
+plt.title("Yearly Average Land Temperature 1750-2015")
+plt.xlabel("Year")
+plt.ylabel("Yearly Average Land Temperature")
+plt.show()
+
+print(dataFrame['LandAverageTemperature'].isnull().sum())
+
+
